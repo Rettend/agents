@@ -21,7 +21,7 @@ const results: Result[] = [];
 for (const tsconfig of tsconfigs) {
   console.log(`Checking ${tsconfig}...`);
   try {
-    const output = execSync(`tsc -p ${tsconfig}`, {
+    const output = execSync(`tsgo --noEmit -p ${tsconfig}`, {
       encoding: "utf-8",
       stdio: ["pipe", "pipe", "pipe"]
     });

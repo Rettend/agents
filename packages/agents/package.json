@@ -43,6 +43,7 @@
     "@types/yargs": "^17.0.35",
     "ai": "^6.0.50",
     "react": "^19.2.4",
+    "solid-js": "^1.8.0",
     "vitest-browser-react": "^1.0.1",
     "x402": "^1.1.0",
     "zod": "^4.3.6"
@@ -54,6 +55,7 @@
     "@cloudflare/codemode": "^0.0.5",
     "ai": "^6.0.0",
     "react": "^19.0.0",
+    "solid-js": "^1.8.0",
     "viem": ">=2.0.0",
     "x402": "^0.7.1",
     "zod": "^3.25.0 || ^4.0.0"
@@ -63,6 +65,9 @@
       "optional": true
     },
     "@ai-sdk/react": {
+      "optional": true
+    },
+    "solid-js": {
       "optional": true
     },
     "viem": {
@@ -119,6 +124,11 @@
       "import": "./dist/react.js",
       "require": "./dist/react.js"
     },
+    "./solid": {
+      "types": "./dist/solid.d.ts",
+      "import": "./dist/solid.js",
+      "require": "./dist/solid.js"
+    },
     "./schedule": {
       "types": "./dist/schedule.d.ts",
       "import": "./dist/schedule.js",
@@ -164,14 +174,17 @@
   ],
   "scripts": {
     "build": "tsx ./scripts/build.ts",
-    "check:test": "npm run check:test:workers && npm run check:test:react && npm run check:test:cli",
+    "typecheck": "tsgo --noEmit",
+    "check:test": "npm run check:test:workers && npm run check:test:react && npm run check:test:cli && npm run check:test:solid",
     "check:test:cli": "vitest -r src/cli-tests --watch false",
     "check:test:react": "vitest -r src/react-tests --watch false",
+    "check:test:solid": "vitest -r src/solid-tests --watch false",
     "check:test:workers": "vitest -r src/tests --watch false",
     "evals": "(cd evals; evalite)",
-    "test": "npm run test:workers && npm run test:react && npm run test:cli",
+    "test": "npm run test:workers && npm run test:react && npm run test:cli && npm run test:solid",
     "test:cli": "vitest -r src/cli-tests",
     "test:react": "vitest -r src/react-tests",
+    "test:solid": "vitest -r src/solid-tests",
     "test:e2e": "vitest run src/e2e/e2e.test.ts --sequence.concurrent",
     "test:workers": "vitest -r src/tests"
   }

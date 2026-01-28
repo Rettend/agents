@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
+  },
+  "extends": "../../tsconfig.base.json"
+}

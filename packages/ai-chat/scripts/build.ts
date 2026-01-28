@@ -9,10 +9,19 @@ async function main() {
       "src/index.ts",
       "src/react.tsx",
       "src/types.ts",
-      "src/ai-chat-v5-migration.ts"
+      "src/ai-chat-v5-migration.ts",
+      "src/solid.tsx"
     ],
     skipNodeModulesBundle: true,
-    external: ["cloudflare:workers", "cloudflare:email"],
+    external: [
+      "cloudflare:workers",
+      "cloudflare:email",
+      "ai-sdk-solid",
+      "solid-js",
+      "agents",
+      "nanoid",
+      "ai"
+    ],
     format: "esm",
     sourcemap: true,
     fixedExtension: false

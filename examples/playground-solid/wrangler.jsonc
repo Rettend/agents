@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
-  "name": "playground",
+  "name": "playground-solid",
   "account_id": "bee9950f4935b08fbc80f8e9ea881286",
   "main": "src/server.ts",
   "compatibility_date": "2025-02-19",
