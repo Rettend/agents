@@ -1,6 +1,6 @@
 {
   "name": "@rttnd/ai-chat",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Cloudflare Agents (x) AI SDK Chat",
   "keywords": [
     "cloudflare",
@@ -8,6 +8,10 @@
     "ai",
     "sdk",
     "chat"
+  ],
+  "files": [
+    "dist",
+    "README.md"
   ],
   "type": "module",
   "repository": {

@@ -89,5 +89,8 @@
       "prettier --write --ignore-unknown"
     ]
   },
-  "packageManager": "npm@11.8.0"
+  "packageManager": "npm@11.8.0",
+  "dependencies": {
+    "@solidjs/start": "^2.0.0-alpha.1"
+  }
 }
