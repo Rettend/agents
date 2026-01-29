@@ -13,6 +13,7 @@ import {
 } from "./client";
 import type { Agent, MCPServersState } from "./";
 import type { Method, RPCMethod } from "./serializable";
+import { MessageType } from "./types";
 
 /**
  * Creates a proxy that wraps RPC method calls.
@@ -141,6 +142,12 @@ export type CreateAgentOptions<State = unknown> = Omit<
   onMcpUpdate?: (mcpServers: MCPServersState) => void;
   /** Called when a message is received */
   onMessage?: (event: MessageEvent) => void;
+  /** Called when the WebSocket connection is opened */
+  onOpen?: (event: Event) => void;
+  /** Called when the WebSocket connection is closed */
+  onClose?: (event: CloseEvent) => void;
+  /** Called when a WebSocket error occurs */
+  onError?: (event: Event) => void;
   host?: string;
 };
 
@@ -220,8 +227,34 @@ export function createAgent<State>(
       query: resolvedQuery as Record<string, string | undefined>
     });
 
+    // Wire up all WebSocket event handlers
+    if (opts.onOpen) {
+      newClient.addEventListener("open", opts.onOpen);
+    }
+    if (opts.onClose) {
+      newClient.addEventListener("close", opts.onClose);
+    }
+    if (opts.onError) {
+      newClient.addEventListener("error", opts.onError);
+    }
     if (opts.onMessage) {
       newClient.addEventListener("message", opts.onMessage);
+    }
+
+    // Handle MCP server state updates
+    if (opts.onMcpUpdate) {
+      newClient.addEventListener("message", (event) => {
+        if (typeof event.data === "string") {
+          try {
+            const parsed = JSON.parse(event.data);
+            if (parsed.type === MessageType.CF_AGENT_MCP_SERVERS) {
+              opts.onMcpUpdate?.(parsed.mcp);
+            }
+          } catch {
+            // Ignore parse errors
+          }
+        }
+      });
     }
 
     clientRef = newClient;
